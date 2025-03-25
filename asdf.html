@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio</title>
+    <link rel="stylesheet" href="styles.css">
+    <script defer src="script.js"></script>
+</head>
+<body>
+    <header>
+        <div class="menu-toggle" onclick="toggleMenu()">
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+        </div>
+        <div class="logo">YZY</div>
+    </header>
+    <section class="hero fade-in">
+        <h1>Welcome to My Portfolio</h1>
+        <p>Bold. Modern. Minimal.</p>
+    </section>
+    <nav class="nav-links">
+        <a href="#work" class="menu-item">Work</a>
+        <a href="#art" class="menu-item">Art</a>
+        <a href="#hobby" class="menu-item">Hobby</a>
+    </nav>
+    <section class="content">
+        <h2 class="fade-in">About Me</h2>
+        <p class="fade-in">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+        <p class="fade-in">Curabitur nec arcu nec lorem tincidunt ultricies.</p>
+        <p class="fade-in">Vestibulum euismod orci ut dolor blandit.</p>
+        <h2 class="fade-in">Projects</h2>
+        <p class="fade-in">Project 1 - Lorem ipsum dolor sit amet.</p>
+        <p class="fade-in">Project 2 - Nulla facilisi.</p>
+        <p class="fade-in">Project 3 - Fusce vehicula orci.</p>
+        <h2 class="fade-in">Contact</h2>
+        <p class="fade-in">Email: example@example.com</p>
+        <p class="fade-in">LinkedIn: linkedin.com/in/example</p>
+    </section>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: black;
+            color: white;
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            background: transparent;
+            z-index: 100;
+        }
+        .menu-toggle {
+            position: absolute;
+            left: 20px;
+            display: flex;
+            flex-direction: column;
+            cursor: pointer;
+            z-index: 110;
+        }
+        .bar {
+            width: 30px;
+            height: 4px;
+            background: white;
+            margin: 3px;
+            transition: 0.3s;
+        }
+        .menu-toggle.active .bar:nth-child(1) {
+            transform: translateY(8px) rotate(45deg);
+        }
+        .menu-toggle.active .bar:nth-child(2) {
+            opacity: 0;
+        }
+        .menu-toggle.active .bar:nth-child(3) {
+            transform: translateY(-8px) rotate(-45deg);
+        }
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+        }
+        .nav-links {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            background: rgba(20, 20, 20, 0.7);
+            backdrop-filter: blur(10px);
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+        }
+        .nav-active {
+            opacity: 1;
+            visibility: visible;
+        }
+        .nav-active .menu-item {
+            color: white !important;
+            text-decoration: none !important;
+            font-weight: bold;
+            font-size: 24px;
+            display: block;
+            opacity: 0;
+            animation: fadeInMenu 0.3s ease-in-out forwards;
+        }
+        .nav-active .menu-item:nth-child(1) { animation-delay: 0.1s; }
+        .nav-active .menu-item:nth-child(2) { animation-delay: 0.3s; }
+        .nav-active .menu-item:nth-child(3) { animation-delay: 0.5s; }
+        @keyframes fadeInMenu {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            font-size: 30px;
+        }
+        .content {
+            padding: 50px;
+            text-align: left;
+            max-width: 800px;
+            margin: auto;
+        }
+        .content h2 {
+            margin-top: 50px;
+        }
+    </style>
+    <script>
+        function toggleMenu() {
+            const menu = document.querySelector('.nav-links');
+            const toggle = document.querySelector('.menu-toggle');
+            menu.classList.toggle('nav-active');
+            toggle.classList.toggle('active');
+        }
+        document.addEventListener("DOMContentLoaded", function () {
+            const fadeElements = document.querySelectorAll(".fade-in");
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add("visible");
+                    } else {
+                        entry.target.classList.remove("visible");
+                    }
+                });
+            }, { threshold: 0.1 });
+            fadeElements.forEach(el => observer.observe(el));
+        });
+    </script>
+</body>
+</html>
